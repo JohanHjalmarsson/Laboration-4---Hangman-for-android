@@ -11,10 +11,7 @@ import android.widget.TextView;
 
 
 public class PlayLevelOne extends AppCompatActivity {
-    Game game = new Game("cat", "dog","bird","shoe","milk");
-
-
-    //"cat", "dog","bird","shoe","milk"
+    Game game = new Game("Animals", "cat", "dog","bird","pig","cow");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +19,9 @@ public class PlayLevelOne extends AppCompatActivity {
         setContentView(R.layout.activity_play_level_one);
 
         game.initCharList();
+
+        TextView categoryView = (TextView) findViewById(R.id.categoryTextView);
+        categoryView.setText("Category: "+game.getCategory());
 
         TextView textView = (TextView) findViewById(R.id.displayWord);
         textView.setText(game.printCharList());

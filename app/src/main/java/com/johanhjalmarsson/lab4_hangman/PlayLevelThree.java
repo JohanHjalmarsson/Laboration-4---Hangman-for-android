@@ -9,8 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class PlayLevelThree extends AppCompatActivity {
-    Game game3 = new Game("restaurant","department","programmer","catamaran","situation");
-    //"restaurant","department","programmer","catamaran","situation"
+    Game game3 = new Game("Professions","director","researcher","programmer","developer","professor");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

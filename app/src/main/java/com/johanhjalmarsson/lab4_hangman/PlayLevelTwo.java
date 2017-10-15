@@ -9,8 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class PlayLevelTwo extends AppCompatActivity {
-    Game game2 = new Game("flower","kitchen","computer","laptop","window");
-    //"flower","kitchen","computer","laptop","window"
+    Game game2 = new Game("Food", "sandwich","cheese","banana","cereal","hamburger");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
