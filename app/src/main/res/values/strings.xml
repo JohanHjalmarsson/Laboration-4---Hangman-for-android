@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Lab 4 - Hangman</string>
+    <string name="play_button">Play!</string>
+    <string name="info_button">Information</string>
+    <string name="welcome_text">Welcome to Hangman!</string>
+    <string name="standard_display_word">*</string>
+    <string name="guess_box">Enter guess</string>
+    <string name="guess_botton">OK</string>
+    <string name="display_tries">10 tries left</string>
+    <string name="letter_used">Used letters</string>
+    <string name="you_win_message">You have won the game</string>
+    <string name="no_button">No</string>
+    <string name="yes_button">Yes</string>
+    <string name="play_again">Play again?</string>
+    <string name="you_loose_message">You have lost the game!!</string>
+    <string name="empty_alert">Error message</string>
+    <string name="level_one_button">Play Level 1</string>
+    <string name="level_two_button">Play Level 2</string>
+    <string name="leve_three_button">Play Level 3</string>
+    <string name="about_button">About</string>
+    <string name="about_text">Developed by Johan Hjalmarsson 2017</string>
+    <string name="secret_word">The word was:</string>
+    <string name="tries_left">Tries left:</string>
+</resources>
