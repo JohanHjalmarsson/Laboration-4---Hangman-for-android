@@ -28,7 +28,7 @@ public class YouLoose extends AppCompatActivity {
 
     }
     public void playAgain(View v) {
-        Intent intent = new Intent(this, PlayLevelOne.class);
+        Intent intent = new Intent(this, ChooseCategory.class);
         startActivity(intent);
     }
     public void dontPlayAgain(View v) {

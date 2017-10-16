@@ -27,7 +27,7 @@ public class YouWin extends AppCompatActivity {
         triesLeftView.setText(tva);
     }
     public void playAgain(View v) {
-        Intent intent = new Intent(this, PlayLevelOne.class);
+        Intent intent = new Intent(this, ChooseCategory.class);
         startActivity(intent);
     }
     public void dontPlayAgain(View v) {

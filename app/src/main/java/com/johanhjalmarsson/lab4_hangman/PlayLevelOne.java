@@ -60,19 +60,19 @@ public class PlayLevelOne extends AppCompatActivity {
                 game = new Game("Foods", "entrecote", "hamburger", "carbonara", "pineapple", "sandwich");
                 break;
             case "Professions":
-                game = new Game("Professions", "chef", "driver", "nanny", "nurse", "chef");
+                game = new Game("Professions", "accountant", "director", "dishwasher", "woodworker", "chauffeur");
                 break;
             case "Names":
-                game = new Game("Names", "john", "eve", "pam", "adam", "rudy");
+                game = new Game("Names", "christian", "pauline", "lisabeth", "abraham", "georges");
                 break;
             case "Countries":
-                game = new Game("Countries", "sweden", "denmark", "germany", "finland", "norway");
+                game = new Game("Countries", "singapore", "macedonia", "kazakhstan", "switzerland", "guatemala");
                 break;
             case "Drinks":
-                game = new Game("Drinks", "milk", "juice", "beer", "wine", "water");
+                game = new Game("Drinks", "manhattan", "champagne", "curacao", "cosmopolitan", "brewery");
                 break;
             case "Category":
-                game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
+                game = new Game("Foods", "entrecote", "hamburger", "carbonara", "pineapple", "sandwich");
                 break;
         }
         game.initCharList();
@@ -81,25 +81,25 @@ public class PlayLevelOne extends AppCompatActivity {
     public void initLevelTwo(String categoryChoice) {
         switch (categoryChoice) {
             case "Animals":
-                game = new Game("Animals", "cat", "dog", "bird", "pig", "cow");
+                game = new Game("Animals", "horse", "rabbit", "delphine", "camel", "dingo");
                 break;
             case "Foods":
-                game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
+                game = new Game("Foods", "hamburger", "cereal", "orange", "potato", "tomato");
                 break;
             case "Professions":
-                game = new Game("Professions", "chef", "driver", "nanny", "nurse", "chef");
+                game = new Game("Professions", "doctor", "musician", "lawyer", "drummer", "programmer");
                 break;
             case "Names":
-                game = new Game("Names", "john", "eve", "pam", "adam", "rudy");
+                game = new Game("Names", "felix", "maria", "johan", "cedric", "harry");
                 break;
             case "Countries":
-                game = new Game("Countries", "sweden", "denmark", "germany", "finland", "norway");
+                game = new Game("Countries", "belgium", "holland", "greece", "somalia", "estonia");
                 break;
             case "Drinks":
-                game = new Game("Drinks", "milk", "juice", "beer", "wine", "water");
+                game = new Game("Drinks", "whiskey", "cider", "vodka", "bourbon", "soda");
                 break;
             case "Category":
-                game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
+                game = new Game("Foods", "hamburger", "cereal", "orange", "potato", "tomato");
                 break;
         }
         game.initCharList();
