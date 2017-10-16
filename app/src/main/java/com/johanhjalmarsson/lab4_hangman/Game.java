@@ -20,10 +20,10 @@ public class Game {
 
     }
 
-    public Game(String category, String one, String two, String three, String four, String five) {
-        this.category = category;
+    public Game(String[] list) {
+        this.category = list[0];
         //this.level = level;
-        theWords = new String[] {one, two, three, four, five};
+        theWords = new String[] {list[1], list[2], list[3], list[4], list[5]};
         secretWord  = theWords[r.nextInt(theWords.length)];
         charList  = new char[secretWord.length()];
     }

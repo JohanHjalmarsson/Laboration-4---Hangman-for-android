@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 public class PlayLevelOne extends AppCompatActivity {
     Game game;
+    WordLists wordLists = new WordLists();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +39,25 @@ public class PlayLevelOne extends AppCompatActivity {
         TextView levelView = (TextView) findViewById(R.id.levelView);
         levelView.setText(levelChoice);
 
-        switch (levelChoice) {
+        ;
+        game = new Game(wordLists.getWordList(categoryChoice, levelChoice));
+        game.initCharList();
+
+       /* switch (levelChoice) {
             case "Level 1":
                 initLevelOne(categoryChoice);
+
                 break;
             case "Level 2":
                 initLevelTwo(categoryChoice);
                 break;
             case "Level 3":
                 initLevelThree(categoryChoice);
-        }
+        }*/
 
     }
 
-    public void initLevelThree(String categoryChoice) {
+    /*public void initLevelThree(String categoryChoice) {
         switch (categoryChoice) {
             case "Animals":
                 game = new Game("Animals", "crocodile", "albatross", "chimpanzee", "centipede", "hippopotamus");
@@ -130,7 +136,7 @@ public class PlayLevelOne extends AppCompatActivity {
                 break;
         }
         game.initCharList();
-    }
+    }*/
 
     public void sendString(View view) {
         EditText guessBox = (EditText) findViewById(R.id.guessBox);

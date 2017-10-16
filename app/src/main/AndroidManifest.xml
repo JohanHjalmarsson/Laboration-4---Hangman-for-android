@@ -29,12 +29,6 @@
             android:name=".YouWin"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".PlayLevelTwo"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".PlayLevelThree"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity
             android:name=".About"
             android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".ChooseCategory"></activity>
