@@ -21,4 +21,15 @@
     <string name="about_text">Developed by Johan Hjalmarsson 2017</string>
     <string name="secret_word">The word was:</string>
     <string name="tries_left">Tries left:</string>
+    <string name="choose_category">Choose category</string>
+
+    <string-array name="category_array">
+        <item>Category</item>
+        <item>Animals</item>
+        <item>Foods</item>
+        <item>Professions</item>
+        <item>Names</item>
+        <item>Countries</item>
+        <item>Drinks</item>
+    </string-array>
 </resources>

@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 
 public class PlayLevelOne extends AppCompatActivity {
-    Game game = new Game("Animals", "cat", "dog","bird","pig","cow");
+    Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_level_one);
+
+        initGame();
 
         game.initCharList();
 
@@ -28,6 +30,36 @@ public class PlayLevelOne extends AppCompatActivity {
 
 
     }
+
+    public void initGame() {
+        Intent intent = getIntent();
+        String choice1 = intent.getStringExtra(ChooseCategory.choiceX);
+
+        switch (choice1) {
+            case "Animals":
+                game = new Game("Animals", "cat", "dog", "bird", "pig", "cow");
+                break;
+            case "Foods":
+                game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
+                break;
+            case "Professions":
+                game = new Game("Professions", "chef", "driver", "nanny", "nurse", "chef");
+                break;
+            case "Names":
+                game = new Game("Names", "john", "eve", "pam", "adam", "rudy");
+                break;
+            case "Countries":
+                game = new Game("Countries", "sweden", "denmark", "germany", "finland", "norway");
+                break;
+            case "Drinks":
+                game = new Game("Drinks", "milk", "juice", "beer", "wine", "water");
+                break;
+            case "Category":
+                game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
+                break;
+        }
+    }
+
     public void sendString(View view) {
         EditText guessBox = (EditText) findViewById(R.id.guessBox);
         String guess = guessBox.getText().toString();

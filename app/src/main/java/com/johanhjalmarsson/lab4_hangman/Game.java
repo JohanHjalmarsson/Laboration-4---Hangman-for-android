@@ -12,11 +12,17 @@ public class Game {
     private int usedLettersIndex = 0;
     private char[] usedLetters = new char[29];
     private String category;
+    private String level;
 
     private int triesLeft = 10;
 
+    public Game() {
+
+    }
+
     public Game(String category, String one, String two, String three, String four, String five) {
         this.category = category;
+        //this.level = level;
         theWords = new String[] {one, two, three, four, five};
         secretWord  = theWords[r.nextInt(theWords.length)];
         charList  = new char[secretWord.length()];
@@ -115,5 +121,9 @@ public class Game {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getLevel() {
+        return level;
     }
 }
