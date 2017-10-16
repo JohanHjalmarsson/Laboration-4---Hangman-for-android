@@ -14,7 +14,7 @@
     <string name="play_again">Play again?</string>
     <string name="you_loose_message">You have lost the game!!</string>
     <string name="empty_alert">Error message</string>
-    <string name="level_one_button">Play Level 1</string>
+    <string name="level_one_button">Play Hangman!</string>
     <string name="level_two_button">Play Level 2</string>
     <string name="leve_three_button">Play Level 3</string>
     <string name="about_button">About</string>
@@ -31,5 +31,12 @@
         <item>Names</item>
         <item>Countries</item>
         <item>Drinks</item>
+    </string-array>
+
+    <string-array name="level_array">
+        <item>Choose Level</item>
+        <item>Level 1</item>
+        <item>Level 2</item>
+        <item>Level 3</item>
     </string-array>
 </resources>

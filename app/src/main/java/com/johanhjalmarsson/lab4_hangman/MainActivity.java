@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String nullString = "0";
+   // public static final String nullString = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case (R.id.playButton):
                 Intent intent1 = new Intent(this, ChooseCategory.class);
-                intent1.putExtra(nullString, "1");
+               // intent1.putExtra(nullString, "1");
                 startActivity(intent1);
                 return true;
             case (R.id.infoButton):
@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void runPlayLevelOne(View view) {
+    public void runChooseCategory(View view) {
         Intent intent = new Intent(this, ChooseCategory.class);
-        intent.putExtra(nullString, "1");
+       // intent.putExtra(nullString, "1");
         startActivity(intent);
     }
-    public void runPlayLevelTwo(View view) {
+    /*public void runPlayLevelTwo(View view) {
         Intent intent = new Intent(this, ChooseCategory.class);
         intent.putExtra(nullString, "2");
         startActivity(intent);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChooseCategory.class);
         intent.putExtra(nullString, "3");
         startActivity(intent);
-    }
+    }*/
     public void runAbout(View view) {
         Intent intent = new Intent(this, About.class);
         startActivity(intent);

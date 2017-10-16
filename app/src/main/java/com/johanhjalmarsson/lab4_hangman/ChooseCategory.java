@@ -11,7 +11,9 @@ import android.widget.Spinner;
 
 public class ChooseCategory extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Spinner spinner;
-    public static final String choiceX = "0";
+    private Spinner spinner2;
+    public static final String choiceCategory = "0";
+    public static final String choiceLevel = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,12 @@ public class ChooseCategory extends AppCompatActivity implements AdapterView.OnI
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+
+        spinner2 = (Spinner) findViewById(R.id.levelSpinner);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.level_array, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter2);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -31,7 +39,7 @@ public class ChooseCategory extends AppCompatActivity implements AdapterView.OnI
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-    public void nextActivity(View v) {
+    /*public void nextActivity(View v) {
         Intent getIntent = getIntent();
         String option = getIntent.getStringExtra(MainActivity.nullString);
         String choice = spinner.getSelectedItem().toString();
@@ -48,14 +56,19 @@ public class ChooseCategory extends AppCompatActivity implements AdapterView.OnI
                 break;
         }
 
-    }
-    public void playOne(String choice) {
+    }*/
+    public void playActivity(View v) {
+        String categoryChoice = spinner.getSelectedItem().toString();
+        String levelChoice = spinner2.getSelectedItem().toString();
+
         Intent intent = new Intent(this, PlayLevelOne.class);
 
-        intent.putExtra(choiceX, choice);
+        intent.putExtra(choiceCategory, categoryChoice);
+        intent.putExtra(choiceLevel, levelChoice);
+
         startActivity(intent);
     }
-    public void playTwo(String choice) {
+  /*  public void playTwo(String choice) {
         Intent intent = new Intent(this, PlayLevelTwo.class);
 
         intent.putExtra(choiceX, choice);
@@ -66,5 +79,5 @@ public class ChooseCategory extends AppCompatActivity implements AdapterView.OnI
 
         intent.putExtra(choiceX, choice);
         startActivity(intent);
-    }
+    } */
 }

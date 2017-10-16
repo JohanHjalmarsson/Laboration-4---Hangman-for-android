@@ -20,7 +20,7 @@ public class PlayLevelOne extends AppCompatActivity {
 
         initGame();
 
-        game.initCharList();
+
 
         TextView categoryView = (TextView) findViewById(R.id.categoryTextView);
         categoryView.setText("Category: "+game.getCategory());
@@ -28,14 +28,58 @@ public class PlayLevelOne extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.displayWord);
         textView.setText(game.printCharList());
 
-
     }
 
     public void initGame() {
         Intent intent = getIntent();
-        String choice1 = intent.getStringExtra(ChooseCategory.choiceX);
+        String categoryChoice = intent.getStringExtra(ChooseCategory.choiceCategory);
+        String levelChoice = intent.getStringExtra(ChooseCategory.choiceLevel);
 
-        switch (choice1) {
+        TextView levelView = (TextView) findViewById(R.id.levelView);
+        levelView.setText(levelChoice);
+
+        switch (levelChoice) {
+            case "Level 1":
+                initLevelOne(categoryChoice);
+                break;
+            case "Level 2":
+                initLevelTwo(categoryChoice);
+                break;
+            case "Level 3":
+                initLevelThree(categoryChoice);
+        }
+
+    }
+
+    public void initLevelThree(String categoryChoice) {
+        switch (categoryChoice) {
+            case "Animals":
+                game = new Game("Animals", "crocodile", "albatross", "chimpanzee", "centipede", "hippopotamus");
+                break;
+            case "Foods":
+                game = new Game("Foods", "entrecote", "hamburger", "carbonara", "pineapple", "sandwich");
+                break;
+            case "Professions":
+                game = new Game("Professions", "chef", "driver", "nanny", "nurse", "chef");
+                break;
+            case "Names":
+                game = new Game("Names", "john", "eve", "pam", "adam", "rudy");
+                break;
+            case "Countries":
+                game = new Game("Countries", "sweden", "denmark", "germany", "finland", "norway");
+                break;
+            case "Drinks":
+                game = new Game("Drinks", "milk", "juice", "beer", "wine", "water");
+                break;
+            case "Category":
+                game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
+                break;
+        }
+        game.initCharList();
+    }
+
+    public void initLevelTwo(String categoryChoice) {
+        switch (categoryChoice) {
             case "Animals":
                 game = new Game("Animals", "cat", "dog", "bird", "pig", "cow");
                 break;
@@ -58,6 +102,34 @@ public class PlayLevelOne extends AppCompatActivity {
                 game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
                 break;
         }
+        game.initCharList();
+    }
+
+    public void initLevelOne(String categoryChoice) {
+        switch (categoryChoice) {
+            case "Animals":
+                game = new Game("Animals", "cat", "dog", "bird", "pig", "cow");
+                break;
+            case "Foods":
+                game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
+                break;
+            case "Professions":
+                game = new Game("Professions", "chef", "driver", "nanny", "nurse", "chef");
+                break;
+            case "Names":
+                game = new Game("Names", "john", "eve", "pam", "adam", "rudy");
+                break;
+            case "Countries":
+                game = new Game("Countries", "sweden", "denmark", "germany", "finland", "norway");
+                break;
+            case "Drinks":
+                game = new Game("Drinks", "milk", "juice", "beer", "wine", "water");
+                break;
+            case "Category":
+                game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
+                break;
+        }
+        game.initCharList();
     }
 
     public void sendString(View view) {

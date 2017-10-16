@@ -25,7 +25,7 @@
             android:id="@+id/errorBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="54dp"
+            android:layout_marginBottom="13dp"
             android:background="@color/colorAccent"
             android:elevation="@android:dimen/notification_large_icon_height"
             android:padding="5dp"
@@ -35,7 +35,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:layout_editor_absoluteY="218dp"
-            android:layout_above="@+id/displayWord"
+            android:layout_above="@+id/levelView"
             android:layout_alignStart="@+id/usedLetterBox" />
 
         <TextView
@@ -82,6 +82,16 @@
             android:textColor="@android:color/holo_blue_bright"
             android:layout_above="@+id/displayWord"
             android:layout_alignStart="@+id/errorBox" />
+
+        <TextView
+            android:id="@+id/levelView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/categoryTextView"
+            android:layout_alignStart="@+id/categoryTextView"
+            android:layout_marginBottom="7dp"
+            android:text="TextView"
+            android:textColor="@android:color/holo_blue_bright" />
     </RelativeLayout>
 
     <EditText
