@@ -22,6 +22,16 @@
     <string name="secret_word">The word was:</string>
     <string name="tries_left">Tries left:</string>
     <string name="choose_category">Choose category</string>
+    <string name="player_one_text">Player One</string>
+    <string name="player_two_text">Player Two</string>
+    <string name="player_three_text">Player Three</string>
+    <string name="player_four_text">Player Four</string>
+    <string name="multiplayer_button">Play Multiplayer</string>
+    <string name="choose_players">How many players?</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
 
     <string-array name="category_array">
         <item>Category</item>
@@ -38,5 +48,12 @@
         <item>Level 1</item>
         <item>Level 2</item>
         <item>Level 3</item>
+    </string-array>
+
+    <string-array name="amount_of_players">
+        <item>How many players?</item>
+        <item>Two Players</item>
+        <item>Three Players</item>
+        <item>Four Players</item>
     </string-array>
 </resources>

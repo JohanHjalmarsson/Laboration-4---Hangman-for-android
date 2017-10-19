@@ -3,17 +3,19 @@ package com.johanhjalmarsson.lab4_hangman;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class YouLoose extends AppCompatActivity {
+public class WinnerOrLooser extends AppCompatActivity {
     public final static String theWord = "0";
     public final static String theInt = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_you_loose);
+        setContentView(R.layout.activity_you_win);
 
         Intent intentX = getIntent();
 
@@ -27,12 +29,30 @@ public class YouLoose extends AppCompatActivity {
         triesLeftView.setText(tva);
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.secondary_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case (R.id.infoButton):
+                Intent intent2 = new Intent(this, About.class);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     public void playAgain(View v) {
         Intent intent = new Intent(this, ChooseCategory.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+
     }
     public void dontPlayAgain(View v) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 }

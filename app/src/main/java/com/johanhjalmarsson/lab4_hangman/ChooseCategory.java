@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,31 +34,32 @@ public class ChooseCategory extends AppCompatActivity implements AdapterView.OnI
         spinner2.setAdapter(adapter2);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.secondary_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case (R.id.infoButton):
+                Intent intent2 = new Intent(this, About.class);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+
     }
 
 
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-    /*public void nextActivity(View v) {
-        Intent getIntent = getIntent();
-        String option = getIntent.getStringExtra(MainActivity.nullString);
-        String choice = spinner.getSelectedItem().toString();
 
-        switch (option) {
-            case "1":
-                playOne(choice);
-                break;
-            case "2":
-                playTwo(choice);
-                break;
-            case "3":
-                playThree(choice);
-                break;
-        }
-
-    }*/
     public void playActivity(View v) {
         String categoryChoice = spinner.getSelectedItem().toString();
         String levelChoice = spinner2.getSelectedItem().toString();
@@ -65,19 +68,9 @@ public class ChooseCategory extends AppCompatActivity implements AdapterView.OnI
 
         intent.putExtra(choiceCategory, categoryChoice);
         intent.putExtra(choiceLevel, levelChoice);
-
         startActivity(intent);
+
+
     }
-  /*  public void playTwo(String choice) {
-        Intent intent = new Intent(this, PlayLevelTwo.class);
 
-        intent.putExtra(choiceX, choice);
-        startActivity(intent);
-    }
-    public void playThree(String choice) {
-        Intent intent = new Intent(this, PlayLevelThree.class);
-
-        intent.putExtra(choiceX, choice);
-        startActivity(intent);
-    } */
 }

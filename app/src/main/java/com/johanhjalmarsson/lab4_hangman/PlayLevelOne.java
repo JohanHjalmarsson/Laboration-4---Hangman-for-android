@@ -3,16 +3,18 @@ package com.johanhjalmarsson.lab4_hangman;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-
 public class PlayLevelOne extends AppCompatActivity {
     Game game;
     WordLists wordLists = new WordLists();
+    public static final String winOrLoose = "3";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,16 +23,27 @@ public class PlayLevelOne extends AppCompatActivity {
 
         initGame();
 
-
-
         TextView categoryView = (TextView) findViewById(R.id.categoryTextView);
         categoryView.setText("Category: "+game.getCategory());
 
         TextView textView = (TextView) findViewById(R.id.displayWord);
         textView.setText(game.printCharList());
-
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.secondary_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case (R.id.infoButton):
+                Intent intent2 = new Intent(this, About.class);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     public void initGame() {
         Intent intent = getIntent();
         String categoryChoice = intent.getStringExtra(ChooseCategory.choiceCategory);
@@ -39,109 +52,15 @@ public class PlayLevelOne extends AppCompatActivity {
         TextView levelView = (TextView) findViewById(R.id.levelView);
         levelView.setText(levelChoice);
 
-        ;
         game = new Game(wordLists.getWordList(categoryChoice, levelChoice));
         game.initCharList();
-
-       /* switch (levelChoice) {
-            case "Level 1":
-                initLevelOne(categoryChoice);
-
-                break;
-            case "Level 2":
-                initLevelTwo(categoryChoice);
-                break;
-            case "Level 3":
-                initLevelThree(categoryChoice);
-        }*/
-
     }
-
-    /*public void initLevelThree(String categoryChoice) {
-        switch (categoryChoice) {
-            case "Animals":
-                game = new Game("Animals", "crocodile", "albatross", "chimpanzee", "centipede", "hippopotamus");
-                break;
-            case "Foods":
-                game = new Game("Foods", "entrecote", "hamburger", "carbonara", "pineapple", "sandwich");
-                break;
-            case "Professions":
-                game = new Game("Professions", "accountant", "director", "dishwasher", "woodworker", "chauffeur");
-                break;
-            case "Names":
-                game = new Game("Names", "christian", "pauline", "lisabeth", "abraham", "georges");
-                break;
-            case "Countries":
-                game = new Game("Countries", "singapore", "macedonia", "kazakhstan", "switzerland", "guatemala");
-                break;
-            case "Drinks":
-                game = new Game("Drinks", "manhattan", "champagne", "curacao", "cosmopolitan", "brewery");
-                break;
-            case "Category":
-                game = new Game("Foods", "entrecote", "hamburger", "carbonara", "pineapple", "sandwich");
-                break;
-        }
-        game.initCharList();
-    }
-
-    public void initLevelTwo(String categoryChoice) {
-        switch (categoryChoice) {
-            case "Animals":
-                game = new Game("Animals", "horse", "rabbit", "delphine", "camel", "dingo");
-                break;
-            case "Foods":
-                game = new Game("Foods", "hamburger", "cereal", "orange", "potato", "tomato");
-                break;
-            case "Professions":
-                game = new Game("Professions", "doctor", "musician", "lawyer", "drummer", "programmer");
-                break;
-            case "Names":
-                game = new Game("Names", "felix", "maria", "johan", "cedric", "harry");
-                break;
-            case "Countries":
-                game = new Game("Countries", "belgium", "holland", "greece", "somalia", "estonia");
-                break;
-            case "Drinks":
-                game = new Game("Drinks", "whiskey", "cider", "vodka", "bourbon", "soda");
-                break;
-            case "Category":
-                game = new Game("Foods", "hamburger", "cereal", "orange", "potato", "tomato");
-                break;
-        }
-        game.initCharList();
-    }
-
-    public void initLevelOne(String categoryChoice) {
-        switch (categoryChoice) {
-            case "Animals":
-                game = new Game("Animals", "cat", "dog", "bird", "pig", "cow");
-                break;
-            case "Foods":
-                game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
-                break;
-            case "Professions":
-                game = new Game("Professions", "chef", "driver", "nanny", "nurse", "chef");
-                break;
-            case "Names":
-                game = new Game("Names", "john", "eve", "pam", "adam", "rudy");
-                break;
-            case "Countries":
-                game = new Game("Countries", "sweden", "denmark", "germany", "finland", "norway");
-                break;
-            case "Drinks":
-                game = new Game("Drinks", "milk", "juice", "beer", "wine", "water");
-                break;
-            case "Category":
-                game = new Game("Foods", "apple", "pear", "kiwi", "melon", "orange");
-                break;
-        }
-        game.initCharList();
-    }*/
-
     public void sendString(View view) {
         EditText guessBox = (EditText) findViewById(R.id.guessBox);
         String guess = guessBox.getText().toString();
-
+        if (guess.isEmpty() || guess == null) {
+            return;
+        }
         takeTurn(guess);
         guessBox.setText(null);
 
@@ -153,7 +72,6 @@ public class PlayLevelOne extends AppCompatActivity {
         TextView usedLetters = (TextView) findViewById(R.id.usedLetterBox);
         TextView triesLeft = (TextView) findViewById(R.id.triesLeftBox);
         RelativeLayout hangTheMan = (RelativeLayout) findViewById(R.id.hangManBox);
-
 
         if (!usedLetter(s) && !toManyLetters(s)) {
             boolean correct = game.compareWords(s);
@@ -195,28 +113,34 @@ public class PlayLevelOne extends AppCompatActivity {
                         hangTheMan.setBackgroundResource(R.drawable.hang9);
                         break;
                 }
-
             }
             winOrLoose();
-
         }
-
     }
 
     public void winOrLoose() {
         String secretWord = game.getSecretWord();
         String triesLeft = game.getTriesLeftString();
+        String youLoose = "You have lost the game!";
+        String youWin = "You have won the game!";
         if (game.youLose()) {
-            Intent intentLoose = new Intent(this, YouLoose.class);
-            intentLoose.putExtra(YouLoose.theWord, secretWord);
-            intentLoose.putExtra(YouLoose.theInt, triesLeft);
+            Intent intentLoose = new Intent(this, YouWin.class);
+            intentLoose.putExtra(winOrLoose, youLoose );
+            intentLoose.putExtra(WinnerOrLooser.theWord, secretWord);
+            intentLoose.putExtra(WinnerOrLooser.theInt, triesLeft);
+
             startActivity(intentLoose);
+            finish();
+
         }
         else if(game.youWin()) {
             Intent intentWin = new Intent(this, YouWin.class);
+            intentWin.putExtra(winOrLoose, youWin);
             intentWin.putExtra(YouWin.theWord, secretWord);
             intentWin.putExtra(YouWin.theInt, triesLeft);
+
             startActivity(intentWin);
+            finish();
         }
     }
     public boolean usedLetter(String s) {
@@ -225,10 +149,8 @@ public class PlayLevelOne extends AppCompatActivity {
             errorBox.setText("Letter already used!");
             errorBox.setVisibility(View.VISIBLE);
         }
-
         return game.alreadyUsedLetter(s);
     }
-
     public boolean toManyLetters(String s) {
         if (game.tooManyLetters(s)) {
             TextView errorBox = (TextView) findViewById(R.id.errorBox);

@@ -35,6 +35,14 @@ public class WordLists {
                 wordList.add(4, new String[] {"Countries", "singapore", "macedonia", "kazakhstan", "switzerland", "guatemala"});
                 wordList.add(5, new String[] {"Drinks", "manhattan", "champagne", "curacao", "cosmopolitan", "brewery"});
                 break;
+            default:
+                wordList.add(0, new String[] {"Animals", "cat", "dog", "bird", "pig", "cow"});
+                wordList.add(1, new String[] {"Foods", "apple", "pear", "kiwi", "melon", "orange"});
+                wordList.add(2, new String[] {"Professions", "chef", "driver", "nanny", "nurse", "chef"});
+                wordList.add(3, new String[] {"Names", "john", "eve", "pam", "adam", "rudy"});
+                wordList.add(4, new String[] {"Countries", "sweden", "denmark", "germany", "finland", "norway"});
+                wordList.add(5, new String[] {"Drinks", "milk", "juice", "beer", "wine", "water"});
+                break;
         }
     }
 

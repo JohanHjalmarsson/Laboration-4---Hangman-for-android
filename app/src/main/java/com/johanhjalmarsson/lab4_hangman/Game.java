@@ -27,6 +27,11 @@ public class Game {
         secretWord  = theWords[r.nextInt(theWords.length)];
         charList  = new char[secretWord.length()];
     }
+    public Game (String playerWord) {
+        this.category = "Multiplayer";
+        secretWord = playerWord;
+        charList = new char[secretWord.length()];
+    }
     
     public void initCharList() {
 
@@ -108,6 +113,12 @@ public class Game {
             if (s.charAt(0) == charList[i]) {
                 return true;
             }
+        }
+        return false;
+    }
+    public boolean noInput(String s) {
+        if(s == null || s.isEmpty()) {
+            return true;
         }
         return false;
     }

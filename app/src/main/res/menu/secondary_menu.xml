@@ -3,19 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/playButton"
-        android:icon="@drawable/ic_play_button"
-        android:title="@string/play_button"
-        app:showAsAction="ifRoom">
-    </item>
-
-    <item
         android:id="@+id/infoButton"
         android:icon="@drawable/ic_info_button"
         android:title="@string/info_button"
-        app:showAsAction="ifRoom">
-    </item>
-
-
+        app:showAsAction="ifRoom"></item>
 
 </menu>
