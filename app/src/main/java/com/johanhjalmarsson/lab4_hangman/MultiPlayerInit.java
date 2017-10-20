@@ -13,18 +13,20 @@ public class MultiPlayerInit extends AppCompatActivity {
     private String choice;
     public static final String theChoice = "m0";
     private EditText editText;
-    private EditText playerOne = (EditText) findViewById(R.id.playerOneName);
-    private EditText playerTwo = (EditText) findViewById(R.id.playerTwoName);
-    private EditText playerThree = (EditText) findViewById(R.id.playerThreeName);
-    private EditText playerFour = (EditText) findViewById(R.id.playerFourName);
+    private EditText playerOne;
+    private EditText playerTwo;
+    private EditText playerThree;
+    private EditText playerFour;
     public static final String myPreferencesString = "tjo!";
-    public static final String playerOneName = "Player Name";
-    public static final String playerTwoName = "Player Name";
-    public static final String playerThreeName = "Player Name";
-    public static final String playerFourName = "Player Name";
+    public static final String playerOneName = "Player One";
+    public static final String playerTwoName = "Player Two";
+    public static final String playerThreeName = "Player Three";
+    public static final String playerFourName = "Player Four";
     public static final String amountOfPlayers = "Amount of players";
+    public static final String turns = "Turns";
     private int amountOfPlayersInt = 2;
-    private SharedPreferences myPreferences = getSharedPreferences(myPreferencesString, 0);
+    private int turnNumber = 0;
+    private SharedPreferences myPreferences;
     private boolean radio2Checked = false;
     private boolean radio3Checked = false;
     private boolean radio4Checked = false;
@@ -35,11 +37,15 @@ public class MultiPlayerInit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_player_init);
 
+        playerOne = (EditText) findViewById(R.id.playerOneName);
+        playerTwo = (EditText) findViewById(R.id.playerTwoName);
         playerFour = (EditText) findViewById(R.id.playerFourName);
         playerThree = (EditText) findViewById(R.id.playerThreeName);
 
         playerThree.setVisibility(View.INVISIBLE);
         playerFour.setVisibility(View.INVISIBLE);
+
+        myPreferences = getSharedPreferences(myPreferencesString, 0);
 
 
 
@@ -91,13 +97,35 @@ public class MultiPlayerInit extends AppCompatActivity {
         playerFour.setVisibility(View.VISIBLE);
     }
 
-    public void playMultiPlayer(View v) {
+    public void playMultiplayer(View v) {
         SharedPreferences.Editor myEditor = myPreferences.edit();
-        myEditor.putString(playerOneName, playerOne.getText().toString());
-        myEditor.putString(playerTwoName, playerTwo.getText().toString());
-        myEditor.putString(playerThreeName, playerThree.getText().toString());
-        myEditor.putString(playerFourName, playerFour.getText().toString());
+
+        switch (amountOfPlayersInt) {
+            case 2:
+                myEditor.putString(playerOneName, playerOne.getText().toString());
+                myEditor.putString(playerTwoName, playerTwo.getText().toString());
+                myEditor.apply();
+                break;
+            case 3:
+                myEditor.putString(playerOneName, playerOne.getText().toString());
+                myEditor.putString(playerTwoName, playerTwo.getText().toString());
+                myEditor.putString(playerThreeName, playerThree.getText().toString());
+                myEditor.apply();
+                break;
+            case 4:
+                myEditor.putString(playerOneName, playerOne.getText().toString());
+                myEditor.putString(playerTwoName, playerTwo.getText().toString());
+                myEditor.putString(playerThreeName, playerThree.getText().toString());
+                myEditor.putString(playerFourName, playerFour.getText().toString());
+                myEditor.apply();
+                break;
+            default:
+                break;
+
+
+        }
         myEditor.putInt(amountOfPlayers, amountOfPlayersInt);
+        myEditor.putInt(turns, turnNumber);
         myEditor.apply();
 
         Intent intent = new Intent(this, PlayMultiPlayer.class);

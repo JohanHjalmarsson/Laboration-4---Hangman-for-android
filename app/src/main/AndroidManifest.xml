@@ -34,7 +34,8 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".ChooseCategory" />
         <activity android:name=".MultiPlayerInit" />
-        <activity android:name=".PlayMultiPlayer"></activity>
+        <activity android:name=".PlayMultiPlayer" />
+        <activity android:name=".DisplayMultiPlayerWinner"></activity>
     </application>
 
 </manifest>

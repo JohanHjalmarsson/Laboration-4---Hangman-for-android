@@ -16,9 +16,7 @@ public class Game {
 
     private int triesLeft = 10;
 
-    public Game() {
 
-    }
 
     public Game(String[] list) {
         this.category = list[0];

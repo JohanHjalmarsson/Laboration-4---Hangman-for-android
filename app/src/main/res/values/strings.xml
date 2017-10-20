@@ -32,6 +32,12 @@
     <string name="two">2</string>
     <string name="three">3</string>
     <string name="four">4</string>
+    <string name="write_word">Write a secret word for the next player:</string>
+    <string name="secret_word_add">Secret word</string>
+    <string name="when_ready">When your are ready; hit Play!</string>
+    <string name="empty_text">Null!</string>
+    <string name="question_mark">\?</string>
+    <string name="next_player_button">Enter word for next player</string>
 
     <string-array name="category_array">
         <item>Category</item>

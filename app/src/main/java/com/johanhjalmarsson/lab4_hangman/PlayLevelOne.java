@@ -1,6 +1,7 @@
 package com.johanhjalmarsson.lab4_hangman;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,13 +16,37 @@ public class PlayLevelOne extends AppCompatActivity {
     Game game;
     WordLists wordLists = new WordLists();
     public static final String winOrLoose = "3";
+    private String levelChoice;
+    private String categoryChoice;
+    private Intent intent;
+    private String[] playerList;
+    private SharedPreferences myPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_level_one);
+        intent = getIntent();
+        categoryChoice = intent.getStringExtra(ChooseCategory.choiceCategory);
+        myPreferences = getSharedPreferences(MultiPlayerInit.myPreferencesString, 0);
+        int turn = myPreferences.getInt(MultiPlayerInit.turns, 0);
 
-        initGame();
+        if (categoryChoice.equals("MultiPlayer")) {
+            playerList = new String[] {
+                    myPreferences.getString(MultiPlayerInit.playerOneName, "PlayerName"),
+                    myPreferences.getString(MultiPlayerInit.playerTwoName, "PlayerName"),
+                    myPreferences.getString(MultiPlayerInit.playerThreeName, "PlayerName"),
+                    myPreferences.getString(MultiPlayerInit.playerFourName, "PlayerName")};
+            setTitle(playerList[turn]);
+            SharedPreferences.Editor myEditor = myPreferences.edit();
+
+            initMultiPlayer();
+
+
+        }else {
+            initGame();
+        }
+
 
         TextView categoryView = (TextView) findViewById(R.id.categoryTextView);
         categoryView.setText("Category: "+game.getCategory());
@@ -45,14 +70,17 @@ public class PlayLevelOne extends AppCompatActivity {
         }
     }
     public void initGame() {
-        Intent intent = getIntent();
-        String categoryChoice = intent.getStringExtra(ChooseCategory.choiceCategory);
-        String levelChoice = intent.getStringExtra(ChooseCategory.choiceLevel);
+
+        levelChoice = intent.getStringExtra(ChooseCategory.choiceLevel);
 
         TextView levelView = (TextView) findViewById(R.id.levelView);
         levelView.setText(levelChoice);
 
         game = new Game(wordLists.getWordList(categoryChoice, levelChoice));
+        game.initCharList();
+    }
+    public void initMultiPlayer() {
+        game = new Game(intent.getStringExtra(PlayMultiPlayer.putSecretWord));
         game.initCharList();
     }
     public void sendString(View view) {
@@ -123,25 +151,43 @@ public class PlayLevelOne extends AppCompatActivity {
         String triesLeft = game.getTriesLeftString();
         String youLoose = "You have lost the game!";
         String youWin = "You have won the game!";
-        if (game.youLose()) {
-            Intent intentLoose = new Intent(this, YouWin.class);
-            intentLoose.putExtra(winOrLoose, youLoose );
-            intentLoose.putExtra(WinnerOrLooser.theWord, secretWord);
-            intentLoose.putExtra(WinnerOrLooser.theInt, triesLeft);
 
-            startActivity(intentLoose);
-            finish();
 
+        if (!categoryChoice.equals("MultiPlayer")){
+            Intent intentWinOrLoose = new Intent(this, YouWin.class);
+            intentWinOrLoose.putExtra(WinnerOrLooser.theWord, secretWord);
+            intentWinOrLoose.putExtra(WinnerOrLooser.theInt, triesLeft);
+            if (game.youLose()) {
+
+                intentWinOrLoose.putExtra(winOrLoose, youLoose );
+                startActivity(intentWinOrLoose);
+                finish();
+
+            }
+            else if(game.youWin()) {
+                intentWinOrLoose.putExtra(winOrLoose, youWin);
+                startActivity(intentWinOrLoose);
+                finish();
+            }
+        }else if(categoryChoice.equals("MultiPlayer")) {
+            Intent intentMultiPlayer = new Intent(this, DisplayMultiPlayerWinner.class);
+            intentMultiPlayer.putExtra(WinnerOrLooser.theWord, secretWord);
+            intentMultiPlayer.putExtra(WinnerOrLooser.theInt, triesLeft);
+            if (game.youLose()) {
+
+                intentMultiPlayer.putExtra(winOrLoose, "Wrong!");
+                startActivity(intentMultiPlayer);
+                finish();
+
+            }
+            else if(game.youWin()) {
+                intentMultiPlayer.putExtra(winOrLoose, "Congrats! You solved the word!");
+                startActivity(intentMultiPlayer);
+                finish();
+            }
         }
-        else if(game.youWin()) {
-            Intent intentWin = new Intent(this, YouWin.class);
-            intentWin.putExtra(winOrLoose, youWin);
-            intentWin.putExtra(YouWin.theWord, secretWord);
-            intentWin.putExtra(YouWin.theInt, triesLeft);
 
-            startActivity(intentWin);
-            finish();
-        }
+
     }
     public boolean usedLetter(String s) {
         if (game.alreadyUsedLetter(s)) {
@@ -158,6 +204,14 @@ public class PlayLevelOne extends AppCompatActivity {
             errorBox.setVisibility(View.VISIBLE);
         }
         return game.tooManyLetters(s);
+    }
+    public void setTurns() {
+        int turns = myPreferences.getInt(MultiPlayerInit.turns, 0);
+        int amountOfPlayers = myPreferences.getInt(MultiPlayerInit.amountOfPlayers, 0);
+        if (turns == amountOfPlayers) {
+            SharedPreferences.Editor myEditor = myPreferences.edit();
+            myEditor.putInt(MultiPlayerInit.turns, 0);
+        }
     }
 
 }
