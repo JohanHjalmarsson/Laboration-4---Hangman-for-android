@@ -11,10 +11,17 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
+/**
+ * Class for playing the game. Takes the players choice of level and category (single player) and initialize the Game Class
+ * or takes the players secret word (multiplayer) and carrys on the multiplayer.
+ * @author Johan Hjalmarsson
+ */
 public class PlayLevelOne extends AppCompatActivity {
     Game game;
     WordLists wordLists = new WordLists();
+    /**
+     * static final String key for adding win or loose message to intent
+     */
     public static final String winOrLoose = "3";
     private String levelChoice;
     private String categoryChoice;
@@ -26,6 +33,7 @@ public class PlayLevelOne extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_level_one);
+
         intent = getIntent();
         categoryChoice = intent.getStringExtra(ChooseCategory.choiceCategory);
         myPreferences = getSharedPreferences(MultiPlayerInit.myPreferencesString, 0);
@@ -44,7 +52,9 @@ public class PlayLevelOne extends AppCompatActivity {
 
 
         }else {
+            setTitle("Hangman");
             initGame();
+
         }
 
 
@@ -54,21 +64,10 @@ public class PlayLevelOne extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.displayWord);
         textView.setText(game.printCharList());
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.secondary_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case (R.id.infoButton):
-                Intent intent2 = new Intent(this, About.class);
-                startActivity(intent2);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
+    /**
+     * Initialize the single player game. Declares game by the users choice of category and level
+     */
     public void initGame() {
 
         levelChoice = intent.getStringExtra(ChooseCategory.choiceLevel);
@@ -79,10 +78,19 @@ public class PlayLevelOne extends AppCompatActivity {
         game = new Game(wordLists.getWordList(categoryChoice, levelChoice));
         game.initCharList();
     }
+
+    /**
+     * Initialize the multiplayer game. Declares game with user secret word
+     */
     public void initMultiPlayer() {
         game = new Game(intent.getStringExtra(PlayMultiPlayer.putSecretWord));
         game.initCharList();
     }
+
+    /**
+     * Collects the players input from guessBox, checks that its not empty, then uses the method takeTurn to continue the game
+     * @param view
+     */
     public void sendString(View view) {
         EditText guessBox = (EditText) findViewById(R.id.guessBox);
         String guess = guessBox.getText().toString();
@@ -93,7 +101,12 @@ public class PlayLevelOne extends AppCompatActivity {
         guessBox.setText(null);
 
     }
-    public void takeTurn(String s) {
+
+    /**
+     * Takes the players guess and uses methods to validate and compare it to secret word. Controls hangman game images accordingly to players success
+     * @param guess
+     */
+    public void takeTurn(String guess) {
         TextView errorBox = (TextView) findViewById(R.id.errorBox);
         errorBox.setVisibility(View.INVISIBLE);
         TextView textView = (TextView) findViewById(R.id.displayWord);
@@ -101,8 +114,8 @@ public class PlayLevelOne extends AppCompatActivity {
         TextView triesLeft = (TextView) findViewById(R.id.triesLeftBox);
         RelativeLayout hangTheMan = (RelativeLayout) findViewById(R.id.hangManBox);
 
-        if (!usedLetter(s) && !toManyLetters(s)) {
-            boolean correct = game.compareWords(s);
+        if (!usedLetter(guess) && !toManyLetters(guess)) {
+            boolean correct = game.compareWords(guess);
             if (correct) {
                 textView.setText(game.printCharList());
             }
@@ -146,6 +159,10 @@ public class PlayLevelOne extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks if game is single or multi player. Checks if player has won or lost the game and then start the YouWin activity, adding String youLoose or youWin accordingly
+     * to game outcome
+     */
     public void winOrLoose() {
         String secretWord = game.getSecretWord();
         String triesLeft = game.getTriesLeftString();
@@ -155,8 +172,8 @@ public class PlayLevelOne extends AppCompatActivity {
 
         if (!categoryChoice.equals("MultiPlayer")){
             Intent intentWinOrLoose = new Intent(this, YouWin.class);
-            intentWinOrLoose.putExtra(WinnerOrLooser.theWord, secretWord);
-            intentWinOrLoose.putExtra(WinnerOrLooser.theInt, triesLeft);
+            intentWinOrLoose.putExtra(YouWin.theWord, secretWord);
+            intentWinOrLoose.putExtra(YouWin.theInt, triesLeft);
             if (game.youLose()) {
 
                 intentWinOrLoose.putExtra(winOrLoose, youLoose );
@@ -169,10 +186,11 @@ public class PlayLevelOne extends AppCompatActivity {
                 startActivity(intentWinOrLoose);
                 finish();
             }
-        }else if(categoryChoice.equals("MultiPlayer")) {
+        }
+        else if(categoryChoice.equals("MultiPlayer")) {
             Intent intentMultiPlayer = new Intent(this, DisplayMultiPlayerWinner.class);
-            intentMultiPlayer.putExtra(WinnerOrLooser.theWord, secretWord);
-            intentMultiPlayer.putExtra(WinnerOrLooser.theInt, triesLeft);
+            intentMultiPlayer.putExtra(YouWin.theWord, secretWord);
+            intentMultiPlayer.putExtra(YouWin.theInt, triesLeft);
             if (game.youLose()) {
 
                 intentMultiPlayer.putExtra(winOrLoose, "Wrong!");
@@ -189,6 +207,12 @@ public class PlayLevelOne extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Display error in errorBox if player inputs a already used letter
+     * @param s
+     * @return
+     */
     public boolean usedLetter(String s) {
         if (game.alreadyUsedLetter(s)) {
             TextView errorBox = (TextView) findViewById(R.id.errorBox);
@@ -197,6 +221,12 @@ public class PlayLevelOne extends AppCompatActivity {
         }
         return game.alreadyUsedLetter(s);
     }
+
+    /**
+     * Display error in errorBox if player inputs to many letters
+     * @param s
+     * @return
+     */
     public boolean toManyLetters(String s) {
         if (game.tooManyLetters(s)) {
             TextView errorBox = (TextView) findViewById(R.id.errorBox);
@@ -204,14 +234,6 @@ public class PlayLevelOne extends AppCompatActivity {
             errorBox.setVisibility(View.VISIBLE);
         }
         return game.tooManyLetters(s);
-    }
-    public void setTurns() {
-        int turns = myPreferences.getInt(MultiPlayerInit.turns, 0);
-        int amountOfPlayers = myPreferences.getInt(MultiPlayerInit.amountOfPlayers, 0);
-        if (turns == amountOfPlayers) {
-            SharedPreferences.Editor myEditor = myPreferences.edit();
-            myEditor.putInt(MultiPlayerInit.turns, 0);
-        }
     }
 
 }

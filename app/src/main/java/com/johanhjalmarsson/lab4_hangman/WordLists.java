@@ -3,7 +3,8 @@ package com.johanhjalmarsson.lab4_hangman;
 import java.util.ArrayList;
 
 /**
- * Created by Johan on 2017-10-16.
+ * Class for words, sorted in categories and levels, used in the (single player) game.
+ * @author Johan Hjalmarsson
  */
 
 public class WordLists {
@@ -46,6 +47,12 @@ public class WordLists {
         }
     }
 
+    /**
+     * Returns a String[] with word accordingly to players choice in category and level
+     * @param category
+     * @param level
+     * @return
+     */
     public String[] getWordList(String category, String level) {
         initList(level);
 

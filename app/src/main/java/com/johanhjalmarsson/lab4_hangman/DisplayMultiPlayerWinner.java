@@ -8,6 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * Class for displaying if player managed to solve the word or not.
+ * Displays button for next player to enter word.
+ * In the future, this class should be modified to have a score board, amount
+ * of turns and eventually a end of the game with appropriate user options included.
+ * @author Johan Hjalmarsson
+ */
 public class DisplayMultiPlayerWinner extends AppCompatActivity {
 
 
@@ -15,6 +22,7 @@ public class DisplayMultiPlayerWinner extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_multi_player_winner);
+        setTitle("Multiplayer");
 
         Intent intentX = getIntent();
 
@@ -22,8 +30,8 @@ public class DisplayMultiPlayerWinner extends AppCompatActivity {
         TextView triesLeftView = (TextView) findViewById(R.id.triesLeft);
         TextView winOrLooseTv = (TextView) findViewById(R.id.winOrLooseTV);
 
-        String ett = "The secret word was: "+intentX.getStringExtra(WinnerOrLooser.theWord);
-        String tva = "You had "+intentX.getStringExtra(WinnerOrLooser.theInt);
+        String ett = "The secret word was: "+intentX.getStringExtra(YouWin.theWord);
+        String tva = "You had "+intentX.getStringExtra(YouWin.theInt);
         String winOrLoose = intentX.getStringExtra(PlayLevelOne.winOrLoose);
 
         secretWordView.setText(ett);
@@ -45,19 +53,36 @@ public class DisplayMultiPlayerWinner extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    /**
+     * Starts the PlayMultiPlayer acticity
+     * @param view
+     */
     public void onClickNextPlayer(View view) {
         Intent intent = new Intent(this, PlayMultiPlayer.class);
         startActivity(intent);
     }
+
+    /**
+     * Starts the ChooseCategory activity, then finishes this activity
+     * @param v
+     */
     public void playAgain(View v) {
         Intent intent = new Intent(this, ChooseCategory.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+        finish();
     }
+
+    /**
+     * Returns to (starts) MainActivity activity, then finishes this activity
+     * @param v
+     */
     public void dontPlayAgain(View v) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+        finish();
     }
 
 }

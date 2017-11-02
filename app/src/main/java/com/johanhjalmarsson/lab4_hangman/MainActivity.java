@@ -3,32 +3,29 @@ package com.johanhjalmarsson.lab4_hangman;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+/**
+ * Class for main options of the application; Play Hangman, Play Multiplayer and About
+ * @author uthor Johan Hjalmarsson
+ */
 public class MainActivity extends AppCompatActivity {
-   // public static final String nullString = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // Om du endast vill tillåta porträttorientering this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-       /* Drawable d = getDrawable(R.drawable.actionwallpaper);
-        getActionBar().setBackgroundDrawable(d);*/
-
-       //se om du kan spara en instans av Player även när activityn destroys.
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-
+        setTitle("Hangman");
 
         return super.onCreateOptionsMenu(menu);
 
@@ -50,28 +47,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts the ChooseCategory category
+     * @param view
+     */
     public void runChooseCategory(View view) {
         Intent intent = new Intent(this, ChooseCategory.class);
 
-
-       // intent.putExtra(nullString, "1");
         startActivity(intent);
     }
 
+    /**
+     * Starts the MultiPlayerInit activity
+     * @param v
+     */
     public void runMultiplayer(View v) {
         Intent intent = new Intent(this, MultiPlayerInit.class);
         startActivity(intent);
     }
-    /*public void runPlayLevelTwo(View view) {
-        Intent intent = new Intent(this, ChooseCategory.class);
-        intent.putExtra(nullString, "2");
-        startActivity(intent);
-    }
-    public void runPlayLevelThree(View view) {
-        Intent intent = new Intent(this, ChooseCategory.class);
-        intent.putExtra(nullString, "3");
-        startActivity(intent);
-    }*/
+
+    /**
+     * Starts the About activity
+     * @param view
+     */
     public void runAbout(View view) {
         Intent intent = new Intent(this, About.class);
         startActivity(intent);

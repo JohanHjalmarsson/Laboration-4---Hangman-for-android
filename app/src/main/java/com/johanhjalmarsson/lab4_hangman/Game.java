@@ -3,6 +3,10 @@ package com.johanhjalmarsson.lab4_hangman;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Game class that contains variables and method to play the game.
+ * @author Johan Hjalmarsson
+ */
 public class Game {
 
     private String[] theWords;
@@ -17,7 +21,10 @@ public class Game {
     private int triesLeft = 10;
 
 
-
+    /**
+     * Constructor for (singel player) Game
+     * @param list
+     */
     public Game(String[] list) {
         this.category = list[0];
         //this.level = level;
@@ -25,12 +32,20 @@ public class Game {
         secretWord  = theWords[r.nextInt(theWords.length)];
         charList  = new char[secretWord.length()];
     }
+
+    /**
+     * Constructor for (multiplayer) Game
+     * @param playerWord
+     */
     public Game (String playerWord) {
         this.category = "Multiplayer";
         secretWord = playerWord;
         charList = new char[secretWord.length()];
     }
-    
+
+    /**
+     * Takes the lenght of the secretWord and adds "*" to each slot
+     */
     public void initCharList() {
 
         for (int i = 0; i < charList.length; i++) {
@@ -39,8 +54,14 @@ public class Game {
 
     }
 
-    public boolean compareWords(String s) {
-        char c = s.charAt(0);
+    /**
+     * Takes the users guess and compare its to all the letters in secretWord.
+     * If correct replaces "*" in charList to letter, else adds letter to used letters and subtracts 1 from triesLeft
+     * @param guess
+     * @return true if guess == any letter in secretWord, else false
+     */
+    public boolean compareWords(String guess) {
+        char c = guess.charAt(0);
         boolean correct = false;
         for (int i = 0; i<secretWord.length();i++) {
 
@@ -58,7 +79,11 @@ public class Game {
         }
         return true;
     }
-    // fixa en stiligare lösning här för att få mellanslag och komma mellan bokstäver!
+
+    /**
+     * Adds used letters to usedLetters (char[])
+     * @param c
+     */
     public void addToUsedLetters(char c) {
         usedLetters[usedLettersIndex] = c;
         usedLettersIndex++;
@@ -66,15 +91,29 @@ public class Game {
         usedLettersIndex++;
     }
 
-
+    /**
+     *
+     * Returns a String of the charList
+     * @return
+     */
     public String printCharList() {
         String string = String.valueOf(charList);
         return string;
     }
+
+    /**
+     * returns true if triesLeft == 0
+     * @return
+     */
     public boolean youLose() {
 
         return triesLeft == 0;
     }
+
+    /**
+     * Checks if there is any "*" left in charList. If not; return true, else false
+     * @return
+     */
     public boolean youWin() {
         boolean b = true;
         for (int i = 0; i<charList.length;i++) {
@@ -85,15 +124,30 @@ public class Game {
         }
         return b;
     }
+
+    /**
+     * Returns a String of usedLetters
+     * @return
+     */
     public String getUsedLetters() {
         String string = String.valueOf(usedLetters);
         return string;
     }
 
+    /**
+     * returns a String of triesLeft
+     * @return
+     */
     public String getTriesLeftString() {
         String tries = Integer.toString(triesLeft);
         return tries + " attempts left";
     }
+
+    /**
+     * checks if users has inputet more than one letter. If yes; return true, else false
+     * @param s
+     * @return
+     */
     public boolean tooManyLetters(String s) {
         if (s.length() > 1) {
             return true;
@@ -101,6 +155,12 @@ public class Game {
             return false;
         }
     }
+
+    /**
+     * Checks if users input letter is already used. If yes; return true, else false.
+     * @param s
+     * @return
+     */
     public boolean alreadyUsedLetter(String s) {
         for (int i=0;i<usedLetters.length;i++) {
             if (s.charAt(0) == usedLetters[i]) {
@@ -114,6 +174,12 @@ public class Game {
         }
         return false;
     }
+
+    /**
+     * Checks if users guess is empty, if yes; return true, else false
+     * @param s
+     * @return
+     */
     public boolean noInput(String s) {
         if(s == null || s.isEmpty()) {
             return true;
@@ -121,18 +187,28 @@ public class Game {
         return false;
     }
 
+    /**
+     * Getter for triesLeft
+     * @return triesLeft
+     */
     public int getTriesLeft() {
         return triesLeft;
     }
+
+    /**
+     * Getter for secretWord
+     * @return secretWord
+     */
     public String getSecretWord() {
         return secretWord;
     }
 
+    /**
+     * Getter for category
+     * @return category
+     */
     public String getCategory() {
         return category;
     }
 
-    public String getLevel() {
-        return level;
-    }
 }
